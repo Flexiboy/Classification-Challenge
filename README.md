@@ -12,15 +12,15 @@ The classification challenge goal is to test our own implementation of the K-nn 
 
 **Loading the data:**
 
-`5 def load(path):
-6         data = []
-7         temp = []
-8         temp2 = []
-9         with open(path, "r") as inp:
-10                 for i in inp:
-11                         for j in range(5):
-12                                 if j == 4:
-13                                         temp.append((i.split(';')[j]).split('\n')[0])
+`5 def load(path):\n
+6         data = []\n
+7         temp = []\n
+8         temp2 = []\n
+9         with open(path, "r") as inp:\n
+10                 for i in inp:\n
+11                         for j in range(5):\n
+12                                 if j == 4:\n
+13                                         temp.append((i.split(';')[j]).split('\n')[0])\n
 14                                 else:
 15                                         temp.append(i.split(';')[j])
 16                         data.append(temp)
