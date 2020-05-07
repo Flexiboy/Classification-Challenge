@@ -1,13 +1,13 @@
 # Classification-Challenge
 
-> Authors Julien MARTIN-PRIN ([@Flexiboy](https://github.com/Flexiboy])
+> Authors Julien MARTIN-PRIN ([@Flexiboy](https://github.com/Flexiboy))
 
 *This project is made within the Datascience and IA course in Year 3 of Engineering @ESILV*
 
 ## Project description
 
 The classification challenge goal is to test our own implementation of the K-nn algorithm on a pre-selected dataset. The dataset used to train the K-nn is the file called `data.csv`. The data to test our algorithm is stored in the file `preTest.csv`. We have 4 input variable and a label to guess. There is 10 different labels.
-> PS: All the data is located in the data folder, which also contains the initial subject (instruction in the pdf)
+> PS: All the data is located in the data folder, which also contains the initial subject (instructions in the pdf)
 
 ## Code explanation
 
