@@ -20,7 +20,7 @@ def load(path):
 def distance(reference, test_subject):
 	dist = []
 	for i in range(4):
-		dist.append(abs(reference[i] - test_subject[i]))
+		dist.append(float(abs(reference[i] - test_subject[i])))
 	dist.append(reference[4])
 	return dist
 
@@ -28,12 +28,12 @@ def summ(distlist):
 	dist_summ = 0
 	for i in distlist:
 		if isinstance(i, float):
-		dist_summ += i
+			dist_summ += i
 	return dist_summ
 
 def distance_list(dataset, test_subject, k):
 	distlist = []
-	for i in test_subject:
+	for i in dataset:
 		distlist.append(distance(i, test_subject))
 
 	for i in range(len(distlist)):
