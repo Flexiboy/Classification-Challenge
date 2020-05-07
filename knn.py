@@ -35,27 +35,28 @@ def distance_list(dataset, test_subject, k):
 	distlist = []
 	for i in dataset:
 		distlist.append(distance(i, test_subject))
+	final = sorted(distlist, key=lambda dist: summ(dist))
+	return final[:k]
 
-	for i in range(len(distlist)):
-		for j in range(len(distlist) - 1):
-			if summ(distlist[j - 1]) > summ(distlist[j]):
-				temp = distlist[j - 1]
-				distlist[j - 1] = distlist[j]
-				distlist[j] = temp
-	return distlist[:k]
+def element_count(array, index, to_find):
+	number = 0
+	for i in array:
+		if i[index] == to_find:
+			number += 1
+	return number
 
 def associate(evl, test_subject): 
 	array = []
-	a = evl.count('A')
-	b = evl.count('B')
-	c = evl.count('C')
-	d = evl.count('D')
-	e = evl.count('E')
-	f = evl.count('F')
-	g = evl.count('G')
-	h = evl.count('H')
-	i = evl.count('I')
-	j = evl.count('J')
+	a = element_count(evl, 4, 'A')
+	b = element_count(evl, 4, 'B')
+	c = element_count(evl, 4, 'C')
+	d = element_count(evl, 4, 'D')
+	e = element_count(evl, 4, 'E')
+	f = element_count(evl, 4, 'F')
+	g = element_count(evl, 4, 'G')
+	h = element_count(evl, 4, 'H')
+	i = element_count(evl, 4, 'I')
+	j = element_count(evl, 4, 'J')
 	count = [a, b, c, d, e, f, g, h, i, j]
 	
 	if max(count) == a:
@@ -93,6 +94,11 @@ def main():
 	for i in evaluate:
 		final.append(associate(distance_list(data, i, k), i))
 	show(final)
+	with open('result.csv', "w") as out:
+		for i in final:
+			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
+#	final.append(associate(distance_list(data, evaluate[0], k), evaluate[0]))
+#	show(final)
 
 if __name__ == '__main__':
 	main()
