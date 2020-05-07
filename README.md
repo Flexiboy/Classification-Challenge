@@ -30,8 +30,7 @@ def load(path):
          return data
 ```
 
-Here, we are loading the data from a specified path. The data is also fromated to be much more easy to read in the future part of our programm.
-
+Here, we are loading the data from a specified path. The data is also fromated to be much more easy to read in the future part of our programm.  
 
 **Calculating the euclidian distance:**
 
@@ -45,9 +44,7 @@ def distance(reference, test_subject):
 ```
 
 In this function, we are calculating the euclidian distance between a testing subject (a subject which we want to determine its label) and the a reference subject (a subject in our dataset).
-
-> This can be resumed as calculating the euclidian distance between two subjects and associate the distance array with a label (here `reference[4]`)
-
+> This can be resumed as calculating the euclidian distance between two subjects and associate the distance array with a label (here `reference[4]`)  
 
 **Getting the summ:**
 
@@ -60,8 +57,7 @@ def summ(distlist):
 	return dist_summ
 ```
 
-In this section, we are summing each distance of a specified array (here distlist) to be able to better sort the distances array (matrix of distance arrays)
-
+In this section, we are summing each distance of a specified array (here distlist) to be able to better sort the distances array (matrix of distance arrays)  
 
 **Getting the top-k:**
 
@@ -78,8 +74,7 @@ This is one of the two programm's core (the other one being the association). He
 > In each iterations, we are getting the distance from the testing subject to a different subject in the dataset, each iteration representing a distinct subject.
 Because we only want to sort the array with the distances parameters, we are appling a lambda function wich calculates the sum of the distances. 
 > So, in fact, we are sorting the sum of distances, not distances
-At the end, we only need the top-k distances (the closest distances from the testing subject if you prefer) so we only return the k-first row of the sorted array
-
+At the end, we only need the top-k distances (the closest distances from the testing subject if you prefer) so we only return the k-first row of the sorted array  
 
 **Counting the elements:**
 
@@ -92,8 +87,7 @@ def element_count(array, index, to_find):
 	return number
 ```
 
-This is the part where we count the labels (understand, we are counting the number of 'A' or 'B' or 'C' etc...). The first parameter refers to our top-k list, the second paramter is where to find what we are searching in each row and the last one is what we are searching ('A', 'B', 'C', etc...)
-
+This is the part where we count the labels (understand, we are counting the number of 'A' or 'B' or 'C' etc...). The first parameter refers to our top-k list, the second paramter is where to find what we are searching in each row and the last one is what we are searching ('A', 'B', 'C', etc...)  
 
 **The association:**
 
@@ -136,8 +130,7 @@ def associate(evl, test_subject):
 	return test_subject
 ```
 
-This is the second programm's core. This function associates a subject to a label. At first, we count the occurence number of each label and then we are associating a subject to the label that has the maximum occurence.
-
+This is the second programm's core. This function associates a subject to a label. At first, we count the occurence number of each label and then we are associating a subject to the label that has the maximum occurence.  
 
 **Getting an output:**
 
@@ -147,8 +140,7 @@ def show(data):
 		print(i)
 ```
 
-This function only print an array.
-
+This function only print an array.  
 
 **The main:**
 
