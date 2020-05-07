@@ -31,7 +31,7 @@ def summ(distlist):
 		dist_summ += i
 	return dist_summ
 
-def distanceList(dataset, test_subject, k):
+def distance_list(dataset, test_subject, k):
 	distlist = []
 	for i in test_subject:
 		distlist.append(distance(i, test_subject))
@@ -56,6 +56,30 @@ def associate(evl, test_subject):
 	h = evl.count('H')
 	i = evl.count('I')
 	j = evl.count('J')
+	count = [a, b, c, d, e, f, g, h, i, j]
+	
+	if max(count) == a:
+		test_subject.append('A')
+	elif max(count) == b:
+		test_subject.append('B')
+	elif max(count) == c:
+		test_subject.append('C')
+	elif max(count) == d:
+		test_subject.append('D')
+	elif max(count) == e:
+		test_subject.append('E')
+	elif max(count) == f:
+		test_subject.append('F')
+	elif max(count) == g:
+		test_subject.append('G')
+	elif max(count) == h:
+		test_subject.append('H')
+	elif max(count) == i:
+		test_subject.append('I')
+	elif max(count) == j:
+		test_subject.append('J')
+
+	return test_subject
 
 def show(data):
 	for i in data:
@@ -63,7 +87,12 @@ def show(data):
 
 def main():
 	data = load('data.csv')
-	show(data)
+	evaluate = load('preTest.csv')
+	k = 20
+	final = []
+	for i in evaluate:
+		final.append(associate(distance_list(data, i, k), i))
+	show(final)
 
 if __name__ == '__main__':
 	main()
