@@ -7,6 +7,7 @@
 ## Project description
 
 The classification challenge goal is to test our own implementation of the K-nn algorithm on a pre-selected dataset. The dataset used to train the K-nn is the file called `data.csv`. The data to test our algorithm is stored in the file `preTest.csv`. We have 4 input variable and a label to guess. There is 10 different labels.
+> PS: All the data is located in the data folder, which also contains the initial subject (instruction in the pdf)
 
 ## Code explanation
 
@@ -31,6 +32,9 @@ def load(path):
 
 Here, we are loading the data from a specified path. The data is also fromated to be much more easy to read in the future part of our programm.
 
+
+**Calculating the euclidian distance:**
+
 ```python
 def distance(reference, test_subject):
 	dist = []
@@ -39,6 +43,13 @@ def distance(reference, test_subject):
 	dist.append(reference[4])
 	return dist
 ```
+
+In this function, we are calculating the euclidian distance between a testing subject (a subject which we want to determine its label) and the a reference subject (a subject in our dataset).
+
+> This can be resumed as calculating the euclidian distance between two subjects and associate the distance array with a label (here `reference[4]`)
+
+
+**Getting the summ:**
 
 ```python
 def summ(distlist):
@@ -49,6 +60,11 @@ def summ(distlist):
 	return dist_summ
 ```
 
+In this section, we are summing each distance of a specified array (here distlist) to be able to better sort the distances array (matrix of distance arrays)
+
+
+**Getting the top-k:**
+
 ```python
 def distance_list(dataset, test_subject, k):
 	distlist = []
@@ -58,6 +74,15 @@ def distance_list(dataset, test_subject, k):
 	return final[:k]
 ```
 
+This is one of the two programm's core (the other one being the association). Here we are getting the distances from a specified subject (here `test_subject`) to all the subject in the dataset.
+> In each iterations, we are getting the distance from the testing subject to a different subject in the dataset, each iteration representing a distinct subject.
+Because we only want to sort the array with the distances parameters, we are appling a lambda function wich calculates the sum of the distances. 
+> So, in fact, we are sorting the sum of distances, not distances
+At the end, we only need the top-k distances (the closest distances from the testing subject if you prefer) so we only return the k-first row of the sorted array
+
+
+**Counting the elements:**
+
 ```python
 def element_count(array, index, to_find):
 	number = 0
@@ -66,6 +91,11 @@ def element_count(array, index, to_find):
 			number += 1
 	return number
 ```
+
+This is the part where we count the labels (understand, we are counting the number of 'A' or 'B' or 'C' etc...). The first parameter refers to our top-k list, the second paramter is where to find what we are searching in each row and the last one is what we are searching ('A', 'B', 'C', etc...)
+
+
+**The association:**
 
 ```python
 def associate(evl, test_subject):
@@ -106,11 +136,21 @@ def associate(evl, test_subject):
 	return test_subject
 ```
 
+This is the second programm's core. This function associates a subject to a label. At first, we count the occurence number of each label and then we are associating a subject to the label that has the maximum occurence.
+
+
+**Getting an output:**
+
 ```python
 def show(data):
 	for i in data:
 		print(i)
 ```
+
+This function only print an array.
+
+
+**The main:**
 
 ```python
 def main():
@@ -127,3 +167,5 @@ def main():
 		for i in final:
 			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
 ```
+
+This is the main. We are just running the programm here and setting the k (so the limit for the top-k distances). We are also sending the output to a file called `result.csv`
