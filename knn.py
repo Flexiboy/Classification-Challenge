@@ -87,8 +87,8 @@ def show(data):
 		print(i)
 
 def main():
-	data = load('data.csv')
-	evaluate = load('preTest.csv')
+	data = load('data/data.csv')
+	evaluate = load('data/preTest.csv')
 	k = 20
 	final = []
 	for i in evaluate:
