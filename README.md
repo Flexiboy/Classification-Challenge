@@ -12,7 +12,7 @@ The classification challenge goal is to test our own implementation of the K-nn 
 
 **Loading the data:**
 
-```
+```python
 5 def load(path):
 6         data = []
 7         temp = []
