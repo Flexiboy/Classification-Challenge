@@ -4,7 +4,7 @@
 
 *This project is made within the Datascience and IA course in Year 3 of Engineering @ESILV*
 
-> You will need sci-kit learn to run this script unles you comment the sklearn related stuff
+> You will need sci-kit learn to run this script unless you comment the sklearn related stuff
 
 ## Project description
 
