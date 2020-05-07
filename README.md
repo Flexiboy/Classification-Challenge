@@ -4,6 +4,8 @@
 
 *This project is made within the Datascience and IA course in Year 3 of Engineering @ESILV*
 
+> You will need sci-kit learn to run this script unles you comment the sklearn related stuff
+
 ## Project description
 
 The classification challenge goal is to test our own implementation of the K-nn algorithm on a pre-selected dataset. The dataset used to train the K-nn is the file called `data.csv`. The data to test our algorithm is stored in the file `preTest.csv`. We have 4 input variable and a label to guess. There is 10 different labels.
@@ -142,6 +144,26 @@ def show(data):
 
 This function only print an array.
 
+**The confusion matrix:**
+
+```python
+def confusion_mat(data, first_index):
+	actual = []
+	predicted = []
+	for i in data:
+	actual.append(i[first_index])
+	predicted.append(i[first_index + 1])
+
+	results = confusion_matrix(actual, predicted)
+	print('Confusion matrix:')
+	print(results)
+	print(f'Accuracy score: {accuracy_score(actual, predicted)}')
+	print('Report:')
+	print(classification_report(actual, predicted))
+```
+
+This function is used to generate a confusion matrix
+
 **The main:**
 
 ```python
@@ -160,6 +182,7 @@ def main():
 			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
 	t1 = time.perf_counter()
 	print(f'time elapsed: {t1 - t0}')
+	confusion_mat(final, 4)
 ```
 
 This is the main. We are just running the programm here and setting the k (so the limit for the top-k distances). We are also sending the output to a file called `result.csv`. We are also showing the time elapsed.

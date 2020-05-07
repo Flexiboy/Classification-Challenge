@@ -3,6 +3,9 @@
 # Authors: @Flexiboy
 
 import time
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
 
 def load(path):
 	"""
@@ -129,6 +132,26 @@ def show(data):
 	for i in data:
 		print(i)
 
+def confusion_mat(data, first_index):
+	"""
+	This creates a confusion matrix and a report about the results
+	:param data: the array of the results
+	:param first_index: the first index where the labels start (actual then predicted)
+	:return: nothing
+	"""
+	actual = []
+	predicted = []
+	for i in data:
+		actual.append(i[first_index])
+		predicted.append(i[first_index + 1])
+	
+	results = confusion_matrix(actual, predicted)
+	print('Confusion matrix:')
+	print(results)
+	print(f'Accuracy score: {accuracy_score(actual, predicted)}')
+	print('Report:')
+	print(classification_report(actual, predicted))
+
 def main():
 	"""
 	The main function
@@ -148,6 +171,7 @@ def main():
 			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
 	t1 = time.perf_counter()
 	print(f'time elapsed: {t1 - t0}')
+	confusion_mat(final, 4)
 
 if __name__ == '__main__':
 	main()
