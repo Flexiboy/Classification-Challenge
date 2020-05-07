@@ -146,6 +146,7 @@ This function only print an array.
 
 ```python
 def main():
+	t0 = time.perf_counter()
 	data = load('data/data.csv')
 	evaluate = load('data/preTest.csv')
 	k = 20
@@ -153,11 +154,12 @@ def main():
 
 	for i in evaluate:
 		final.append(associate(distance_list(data, i, k), i))
-	show(final)
 
 	with open('result.csv', "w") as out:
 		for i in final:
 			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
+	t1 = time.perf_counter()
+	print(f'time elapsed: {t1 - t0}')
 ```
 
-This is the main. We are just running the programm here and setting the k (so the limit for the top-k distances). We are also sending the output to a file called `result.csv`
+This is the main. We are just running the programm here and setting the k (so the limit for the top-k distances). We are also sending the output to a file called `result.csv`. We are also showing the time elapsed.
