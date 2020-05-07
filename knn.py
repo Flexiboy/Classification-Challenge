@@ -91,14 +91,14 @@ def main():
 	evaluate = load('data/preTest.csv')
 	k = 20
 	final = []
+
 	for i in evaluate:
 		final.append(associate(distance_list(data, i, k), i))
 	show(final)
+
 	with open('result.csv', "w") as out:
 		for i in final:
 			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
-#	final.append(associate(distance_list(data, evaluate[0], k), evaluate[0]))
-#	show(final)
 
 if __name__ == '__main__':
 	main()
