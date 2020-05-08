@@ -219,4 +219,4 @@ This is the main. We are just running the programm here and setting the k (so th
 
 **Classification report:**
 
-<img scr="results/classification_report.png" width=1000>
+<img src="results/classification_report.png" width=1000>
