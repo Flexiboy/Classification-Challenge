@@ -219,19 +219,4 @@ This is the main. We are just running the programm here and setting the k (so th
 
 **Classification report:**
 
-              | Precision | Recall | F1-score | Support
---------------|-----------|--------|----------|---------
-            A |       0.94|    1.00|      0.97|     309
-            B |       0.89|    0.88|      0.88|      57
-            C |       0.79|    0.82|      0.81|      33
-            D |       0.70|    0.75|      0.72|      40
-            E |       0.78|    0.85|      0.81|      85
-            F |       0.58|    0.55|      0.56|      20
-            G |       0.80|    0.27|      0.40|      15
-            H |       0.75|    0.33|      0.46|       9
-            I |       0.73|    0.44|      0.55|      25
-            J |       0.83|    0.71|      0.77|       7
-              |           |        |          |        
-     Accuracy |           |        |      0.87|     600
-    Macro avg |       0.78|    0.66|      0.69|     600
- Weighted avg |       0.86|    0.87|      0.86|     600
+<img scr="results/classification_report.png" width=1000>
