@@ -183,7 +183,7 @@ def main():
 	t0 = time.perf_counter()
 	data = load('data/data.csv')
 	evaluate = load('data/preTest.csv')
-	k = 20
+	k = 8
 	final = []
 
 	for i in evaluate:

@@ -189,7 +189,7 @@ def main():
 	t0 = time.perf_counter()
 	data = load('data/data.csv')
 	evaluate = load('data/preTest.csv')
-	k = 20
+	k = 8
 	final = []
 
 	for i in evaluate:
@@ -207,7 +207,7 @@ This is the main. We are just running the programm here and setting the k (so th
 
 ## Results
 
-> Here are the results with k = 20
+> I first ran the program with k = 20, but after a brute force test, it appears that the best accuracy score we can obtain with this specific dataset and this specific algorithm is obtained by setting k = 8. So I updated the confusion matrix and the calssification report below
 
 **Confusion matrix without normalization:**
 
@@ -220,3 +220,7 @@ This is the main. We are just running the programm here and setting the k (so th
 **Classification report:**
 
 <img src="results/classification_report.png" width=1000>
+
+## Ways to improve the program
+
+So as I mentionned earlier, with this specific dataset, the best accuracy score is obtained by setting k = 8. Another way to improve the program might be to introduce a normalization for each label and testing it with the actual method.
