@@ -19,7 +19,6 @@ The classification challenge goal is to test our own implementation of the K-nn 
 def load(path):
 	data = []
         temp = []
-        temp2 = []
         with open(path, "r") as inp:
 		for i in inp:
 			for j in range(5):
@@ -224,3 +223,12 @@ This is the main. We are just running the programm here and setting the k (so th
 ## Ways to improve the program
 
 So as I mentionned earlier, with this specific dataset, the best accuracy score is obtained by setting k = 8. Another way to improve the program might be to introduce a normalization for each label and testing it with the actual method.
+
+## Dataset
+
+> Here is the dataset represented in graphs
+
+<img src='data/first_variables.png' width=1000>
+<img src='data/second_variables.png' width=1000>
+<img src='data/third_variables.png' width=1000>
+<img src='data/fourth_variables.png' width=1000>

@@ -14,4 +14,3 @@
     accuracy                           0.88       600
    macro avg       0.82      0.68      0.72       600
 weighted avg       0.88      0.88      0.87       600
-

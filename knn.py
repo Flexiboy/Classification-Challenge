@@ -20,7 +20,6 @@ def load(path):
 	"""
 	data = []
 	temp = []
-	temp2 = []
 	with open(path, "r") as inp:
 		for i in inp:
 			for j in range(5):
