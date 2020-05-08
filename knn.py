@@ -3,6 +3,11 @@
 # Authors: @Flexiboy
 
 import time
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sn
+
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
@@ -146,11 +151,29 @@ def confusion_mat(data, first_index):
 		predicted.append(i[first_index + 1])
 	
 	results = confusion_matrix(actual, predicted)
-	print('Confusion matrix:')
-	print(results)
+	results_normalized = results.astype('float') / results.sum(axis=1)[:, np.newaxis]
 	print(f'Accuracy score: {accuracy_score(actual, predicted)}')
 	print('Report:')
 	print(classification_report(actual, predicted))
+	
+	df_cm = pd.DataFrame(results, index = [i for i in "ABCDEFGHIJ"], columns = [i for i in "ABCDEFGHIJ"])
+	df_cm.index.name = 'Actual'
+	df_cm.columns.name = 'Predicted'
+	plt.figure(figsize = (10, 7))
+	plt.title('Confusion matrix, without normalization')
+	sn.heatmap(df_cm, cmap=plt.cm.Blues, annot=True)
+	
+	df_cm_nm = pd.DataFrame(results_normalized, index = [i for i in "ABCDEFGHIJ"], columns = [i for i in "ABCDEFGHIJ"])
+	df_cm_nm.index.name = 'Actual'
+	df_cm_nm.columns.name = 'Predicted'
+	plt.figure(figsize = (10, 7))
+	plt.title('Confusion matrix, normalized')
+	sn.heatmap(df_cm_nm, cmap=plt.cm.Blues, annot=True)
+	
+	with open("results/classification_report.txt", "w") as out:
+		for i in classification_report(actual, predicted):
+			out.write(i)
+	plt.show()	
 
 def main():
 	"""
@@ -166,7 +189,7 @@ def main():
 	for i in evaluate:
 		final.append(associate(distance_list(data, i, k), i))
 
-	with open('result.csv', "w") as out:
+	with open('results/result.csv', "w") as out:
 		for i in final:
 			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
 	t1 = time.perf_counter()

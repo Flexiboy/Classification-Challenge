@@ -155,11 +155,29 @@ def confusion_mat(data, first_index):
 	predicted.append(i[first_index + 1])
 
 	results = confusion_matrix(actual, predicted)
-	print('Confusion matrix:')
-	print(results)
+	results_normalized = results.astype('float') / results.sum(axis=1)[:, np.newaxis]
 	print(f'Accuracy score: {accuracy_score(actual, predicted)}')
 	print('Report:')
 	print(classification_report(actual, predicted))
+
+	df_cm = pd.DataFrame(results, index = [i for i in "ABCDEFGHIJ"], columns = [i for i in "ABCDEFGHIJ"])
+	df_cm.index.name = 'Actual'
+	df_cm.columns.name = 'Predicted'
+	plt.figure(figsize = (10, 7))
+	plt.title('Confusion matrix, without normalization')
+	sn.heatmap(df_cm, cmap=plt.cm.Blues, annot=True)
+
+	df_cm_nm = pd.DataFrame(results_normalized, index = [i for i in "ABCDEFGHIJ"], columns = [i for i in "ABCDEFG    HIJ"])
+	df_cm_nm.index.name = 'Actual'
+	df_cm_nm.columns.name = 'Predicted'
+	plt.figure(figsize = (10, 7))
+	plt.title('Confusion matrix, normalized')
+	sn.heatmap(df_cm_nm, cmap=plt.cm.Blues, annot=True)
+
+	with open("results/classification_report.txt", "w") as out:
+		for i in classification_report(actual, predicted):
+			out.write(i)
+	plt.show()
 ```
 
 This function is used to generate a confusion matrix
@@ -186,3 +204,34 @@ def main():
 ```
 
 This is the main. We are just running the programm here and setting the k (so the limit for the top-k distances). We are also sending the output to a file called `result.csv`. We are also showing the time elapsed.
+
+## Results
+
+> Here are the results with k = 20
+
+**Confusion matrix without normalization:**
+
+<img src="results/confusion_matrix.png" witdh=1000>
+
+**Normalized confusion matrix:**
+
+<img src="results/confusion_matrix_normalized.png" witdh=1000>
+
+**Classification report:**
+
+              | Precision | Recall | F1-score | Support
+--------------|-----------|--------|----------|---------
+            A |       0.94|    1.00|      0.97|     309
+            B |       0.89|    0.88|      0.88|      57
+            C |       0.79|    0.82|      0.81|      33
+            D |       0.70|    0.75|      0.72|      40
+            E |       0.78|    0.85|      0.81|      85
+            F |       0.58|    0.55|      0.56|      20
+            G |       0.80|    0.27|      0.40|      15
+            H |       0.75|    0.33|      0.46|       9
+            I |       0.73|    0.44|      0.55|      25
+            J |       0.83|    0.71|      0.77|       7
+              |           |        |          |        
+     Accuracy |           |        |      0.87|     600
+    Macro avg |       0.78|    0.66|      0.69|     600
+ Weighted avg |       0.86|    0.87|      0.86|     600
