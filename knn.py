@@ -56,6 +56,18 @@ def summ(distlist):
 			dist_summ += i
 	return dist_summ
 
+def mink(distlist):
+	"""
+	Calculating the distances with the minkwoski algorithm
+	:param distlist: the array that contains the distances between the reference and the test subject
+	:return: minkwoski distance
+	"""
+	mink_dist = 0
+	for i in distlist:
+		if isinstance(i, float):
+			mink_dist += i ** 4
+	return mink_dist ** 0.25
+
 def distance_list(dataset, test_subject, k):
 	"""
 	Getting an array of all distances from between a testing subject and the dataset
@@ -67,7 +79,7 @@ def distance_list(dataset, test_subject, k):
 	distlist = []
 	for i in dataset:
 		distlist.append(distance(i, test_subject))
-	final = sorted(distlist, key=lambda dist: summ(dist))
+	final = sorted(distlist, key=lambda dist: mink(dist))
 	return final[:k]
 
 def element_count(array, index, to_find):
@@ -182,7 +194,7 @@ def main():
 	t0 = time.perf_counter()
 	data = load('data/data.csv')
 	evaluate = load('data/preTest.csv')
-	k = 8
+	k = 5
 	final = []
 
 	for i in evaluate:

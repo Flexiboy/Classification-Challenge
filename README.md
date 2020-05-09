@@ -60,6 +60,19 @@ def summ(distlist):
 
 In this section, we are summing each distance of a specified array (here distlist) to be able to better sort the distances array (matrix of distance arrays).
 
+**Getting the distances with the Minkwosky algorithm:**
+
+```python
+def min(distlist):
+	mink_dist = 0
+	for i in distlist:
+		if isinstance(i, float):
+			mink_dist += i ** 4
+	return mink_dist ** 0.25
+```
+
+In this method, we are calculating the distance from a testing subject to a referende subject using the Minkwoski algorithm. The most efficient parameter for this specific dataset is p = 4. The difference between the Manhattan and the Minkwoski algorithm on the predictions is about +1.3% of better accuracy.
+
 **Getting the top-k:**
 
 ```python
@@ -67,7 +80,7 @@ def distance_list(dataset, test_subject, k):
 	distlist = []
 	for i in dataset:
 		distlist.append(distance(i, test_subject))
-	final = sorted(distlist, key=lambda dist: summ(dist))
+	final = sorted(distlist, key=lambda dist: mink(dist))
 	return final[:k]
 ```
 
@@ -188,7 +201,7 @@ def main():
 	t0 = time.perf_counter()
 	data = load('data/data.csv')
 	evaluate = load('data/preTest.csv')
-	k = 8
+	k = 5
 	final = []
 
 	for i in evaluate:
@@ -207,6 +220,7 @@ This is the main. We are just running the programm here and setting the k (so th
 ## Results
 
 > I first ran the program with k = 20, but after a brute force test, it appears that the best accuracy score we can obtain with this specific dataset and this specific algorithm is obtained by setting k = 8. So I updated the confusion matrix and the calssification report below
+> Edit: it appears that with the minkwosky algorithm, we have a better accuracy (88% vs 89.17%). The best results are obtained with the minkwoski algorithm with k = 5 and p = 4
 
 **Confusion matrix without normalization:**
 
