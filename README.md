@@ -86,8 +86,7 @@ def distance_list(dataset, test_subject, k):
 
 This is one of the two programm's core (the other one being the association). Here we are getting the distances from a specified subject (here `test_subject`) to all the subject in the dataset.
 > In each iterations, we are getting the distance from the testing subject to a different subject in the dataset, each iteration representing a distinct subject.
-Because we only want to sort the array with the distances parameters, we are appling a lambda function wich calculates the sum of the distances. 
-> So, in fact, we are sorting the sum of distances, not distances
+Because we only want to sort the array with the distances parameters, we are appling a lambda function wich calculates the distances with th eminkwosky algorithm. 
 At the end, we only need the top-k distances (the closest distances from the testing subject if you prefer) so we only return the k-first row of the sorted array.
 
 **Counting the elements:**
