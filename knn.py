@@ -31,6 +31,18 @@ def load(path):
 			temp = []
 	return data
 
+def combine(data1, data2):
+	"""
+	Combine 2 arrays
+	:param data1: the first array
+	:param data2: the second array
+	:return: the final array
+	"""
+	final = data1
+	for i in data2:
+		final.append(i)
+	return final
+
 def distance(reference, test_subject):
 	"""
 	Calculating the distance between two subjects
@@ -186,26 +198,30 @@ def confusion_mat(data, first_index):
 			out.write(i)
 	plt.show()	
 
+def output(data):
+	with open('results.txt', 'w') as out:
+		for i in data:
+			out.write(f'{i[4]}\n')
 def main():
 	"""
 	The main function
 	:return: nothing
 	"""
 	t0 = time.perf_counter()
-	data = load('data/data.csv')
-	evaluate = load('data/preTest.csv')
+	data1 = load('data/data.csv')
+	data2 = load('data/preTest.csv')
+	data = combine(data1, data2)
+	evaluate = load('data/finalTest.csv')
 	k = 5
 	final = []
 
 	for i in evaluate:
 		final.append(associate(distance_list(data, i, k), i))
 
-	with open('results/result.csv', "w") as out:
-		for i in final:
-			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
 	t1 = time.perf_counter()
 	print(f'time elapsed: {t1 - t0}')
-	confusion_mat(final, 4)
+#	confusion_mat(final, 4)
+	output(final)
 
 if __name__ == '__main__':
 	main()
