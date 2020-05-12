@@ -21,7 +21,7 @@ def load(path):
         temp = []
         with open(path, "r") as inp:
 		for i in inp:
-			for j in range(5):
+			for j in range(len(i.split(';'))):
                                  if j == 4:
                                          temp.append((i.split(';')[j]).split('\n')[0])
                                  else:
@@ -32,6 +32,18 @@ def load(path):
 ```
 
 Here, we are loading the data from a specified path. The data is also fromated to be much more easy to read in the future part of our programm.
+
+**Combining the data:**
+
+```python
+def combine(data1, data2):
+	final = data1
+	for i in data2:
+		final.append(i)
+	return final
+```
+
+This method is combinig 2 arrays of data.
 
 **Calculating the euclidian distance:**
 
@@ -193,25 +205,38 @@ def confusion_mat(data, first_index):
 
 This function is used to generate a confusion matrix
 
+**The output:**
+
+```python
+def output(data):
+	with open('results.txt', "w") as out:
+		for i in data:
+			out.write(f'{i[4]}\n')
+```
+
 **The main:**
 
 ```python
 def main():
 	t0 = time.perf_counter()
-	data = load('data/data.csv')
-	evaluate = load('data/preTest.csv')
+	data1 = load('data/data.csv')
+	data2 = load('data/preTest.csv')
+	data = combine(data1, data2)
+	evaluate = load('data/finalTest.csv')
+#	minval = minvalues(data)
+#	maxval = maxvalues(data)
+#	rescaled_data = rescale(data, maxval, minval)
+#	rescaled_evaluate = rescale(data, maxval, minval)
 	k = 5
 	final = []
 
 	for i in evaluate:
 		final.append(associate(distance_list(data, i, k), i))
 
-	with open('result.csv', "w") as out:
-		for i in final:
-			out.write(f"{i[0]};{i[1]};{i[2]};{i[3]};{i[4]};{i[5]}\n")
 	t1 = time.perf_counter()
 	print(f'time elapsed: {t1 - t0}')
-	confusion_mat(final, 4)
+#	confusion_mat(final, 4)
+	output(final)
 ```
 
 This is the main. We are just running the programm here and setting the k (so the limit for the top-k distances). We are also sending the output to a file called `result.csv`. We are also showing the time elapsed.
@@ -220,6 +245,7 @@ This is the main. We are just running the programm here and setting the k (so th
 
 > I first ran the program with k = 20, but after a brute force test, it appears that the best accuracy score we can obtain with this specific dataset and this specific algorithm is obtained by setting k = 8. So I updated the confusion matrix and the calssification report below
 > Edit: it appears that with the minkwosky algorithm, we have a better accuracy (88% vs 89.17%). The best results are obtained with the minkwoski algorithm with k = 5 and p = 4
+> Last edit: in order to complete the homework, I added the preTest data in the training dataset. So the following results are obtained with the data.csv and the preTest.csv files combined
 
 **Confusion matrix without normalization:**
 
@@ -236,6 +262,60 @@ This is the main. We are just running the programm here and setting the k (so th
 ## Ways to improve the program
 
 So as I mentionned earlier, with this specific dataset, the best accuracy score is obtained by setting k = 8. Another way to improve the program might be to introduce a normalization for each label and testing it with the actual method.
+
+Here is the rescaling algorithm:
+
+```python
+def minvalues(data):
+	minX, minY, minZ, minT = inf, inf, inf, inf
+	for i in data:
+		if i[0] < minX:
+			minX = i[0]
+		if i[1] < minY:
+			minY = i[1]
+		if i[2] < minZ:
+			minZ = i[2]
+		if i[3] < minT:
+			minT = i[3]
+	return minX, minY, minZ, minT
+```
+
+Here we are getting the minimum values for each feature.
+
+```python
+def maxvalues(data):
+	maxX, maxY, maxZ, maxT = -inf, -inf, -inf, -inf
+	for i in data:
+		if i[0] > maxX:
+			maxX = i[0]
+		if i[1] > maxY:
+			maxY = i[1]
+		if i[2] > maxZ:
+			maxZ = i[2]
+		if i[3] > maxT:
+			maxT = i[3]
+	return maxX, maxY, maxZ, maxT
+```
+
+Here we are getting the maximum values for each feature.
+
+```python
+def rescale(data, maxval, minval):
+	final = []
+	temp = []
+	for i in data:
+		for j in range(4):
+			temp.append((i[j] - minval[j]) / (maxval[j] - minval[j]))
+		if len(i) == 5:
+			temp.append(i[4])
+		final.append(temp)
+		temp = []
+	return final
+```
+
+Here we are just using the min-max rescaling algorithm. The formula is xi' = (xi - min(x)) / (max(x) - min(x)). Where x is the feature vector, xi the feature to recale and xi' the rescaled  feature.
+
+Unfortunatly, I wasn't able to get any improvement in the algorithm using the rescaling. So I dropped it.
 
 ## Dataset
 

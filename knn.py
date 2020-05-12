@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sn
 
+from math import inf
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
@@ -22,7 +23,7 @@ def load(path):
 	temp = []
 	with open(path, "r") as inp:
 		for i in inp:
-			for j in range(5):
+			for j in range(len(i.split(';'))):
 				if j == 4:
 					temp.append((i.split(';')[j]).split('\n')[0])
 				else:
@@ -41,6 +42,61 @@ def combine(data1, data2):
 	final = data1
 	for i in data2:
 		final.append(i)
+	return final
+
+def minvalues(data):
+	"""
+	Finds the minimum values in each feature
+	:param data: the dataset
+	:return: the minimum values for each feature
+	"""
+	minX, minY, minZ, minT = inf, inf, inf, inf
+	for i in data:
+		if i[0] < minX:
+			minX = i[0]
+		if i[1] < minY:
+			minY = i[1]
+		if i[2] < minZ:
+			minZ = i[2]
+		if i[3] < minT:
+			minT = i[3]
+	return minX, minY, minZ, minT
+
+def maxvalues(data):
+	"""
+	Finds the maximum values in each feature
+	:param data: the dataset
+	:return: the maximum values for each feature
+	"""
+	maxX, maxY, maxZ, maxT = -inf, -inf, -inf, -inf
+	for i in data:
+		if i[0] > maxX:
+			maxX = i[0]
+		if i[1] > maxY:
+			maxY = i[1]
+		if i[2] > maxZ:
+			maxZ = i[2]
+		if i[3] > maxT:
+			maxT = i[3]
+	return maxX, maxY, maxZ, maxT
+
+def rescale(data, maxval, minval):
+	"""
+	Rescales the data following the min-max rescaling
+	:param data: the data to rescale
+	:param maxval: the maximum values in the dataset
+	:param minval: the minimum values in the dataset
+	:return: the rescaled data
+	"""
+	final = []
+	temp = []
+	for i in data:
+		for j in range(4):
+			temp.append((i[j] - minval[j]) / (maxval[j] - minval[j]))
+		if len(i) == 5:
+			temp.append(i[4])
+		final.append(temp)
+		temp = []
 	return final
 
 def distance(reference, test_subject):
@@ -199,6 +255,11 @@ def confusion_mat(data, first_index):
 	plt.show()	
 
 def output(data):
+	"""
+	Outputing the results in a file named results.txt
+	:param data: the array to output
+	:return: nothing
+	"""
 	with open('results.txt', 'w') as out:
 		for i in data:
 			out.write(f'{i[4]}\n')
@@ -211,7 +272,11 @@ def main():
 	data1 = load('data/data.csv')
 	data2 = load('data/preTest.csv')
 	data = combine(data1, data2)
+#	minval = minvalues(data)
+#	maxval = maxvalues(data)
 	evaluate = load('data/finalTest.csv')
+#	rescaled_data = rescale(data, maxval, minval)
+#	rescaled_evaluate = rescale(data, maxval, minval)
 	k = 5
 	final = []
 
