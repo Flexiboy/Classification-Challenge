@@ -269,9 +269,10 @@ def main():
 	:return: nothing
 	"""
 	t0 = time.perf_counter()
-	data1 = load('data/data.csv')
-	data2 = load('data/preTest.csv')
-	data = combine(data1, data2)
+#	data1 = load('data/data.csv')
+#	data2 = load('data/preTest.csv')
+#	data = combine(data1, data2)
+	data = load('data/data.csv')
 #	minval = minvalues(data)
 #	maxval = maxvalues(data)
 	evaluate = load('data/finalTest.csv')
